@@ -12,7 +12,9 @@ body {
 }
 
 header {
-    background: linear-gradient(135deg, #d4a373 0%, #b88657 100%);
+    background:
+        linear-gradient(135deg, rgba(77, 45, 29, 0.62), rgba(92, 56, 35, 0.5)),
+        url('../images/vitrine.jpeg') center / cover no-repeat;
     color: white;
     padding: 45px 20px 35px;
     text-align: center;
@@ -62,6 +64,10 @@ p.slogan {
     margin: 4px 0 0;
     opacity: 0.9;
     letter-spacing: 0.5px;
+}
+
+header .button {
+    margin-top: 12px;
 }
 
 main {
@@ -178,6 +184,31 @@ main {
     background: linear-gradient(135deg, #8d5638 0%, #b8764b 100%);
     color: #fff8f3;
     box-shadow: 0 12px 25px rgba(90, 57, 36, 0.25);
+}
+
+header .button-primary,
+footer .button-primary {
+    animation: store-button-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes store-button-pulse {
+    0%,
+    100% {
+        scale: 1;
+        box-shadow: 0 12px 25px rgba(90, 57, 36, 0.25);
+    }
+
+    50% {
+        scale: 1.04;
+        box-shadow: 0 14px 30px rgba(90, 57, 36, 0.42);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    header .button-primary,
+    footer .button-primary {
+        animation: none;
+    }
 }
 
 .button-secondary {
