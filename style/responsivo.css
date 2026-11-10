@@ -15,11 +15,29 @@
     }
 
     .carousel-arrow-previous {
-        left: 10px;
+        grid-column: 1;
+        grid-row: 2;
     }
 
     .carousel-arrow-next {
-        right: 10px;
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+    .featured-carousel,
+    .video-carousel {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        row-gap: 4px;
+    }
+
+    .featured-track,
+    .video-track {
+        grid-column: 1 / -1;
+        grid-row: 1;
+    }
+
+    .carousel-arrow {
+        justify-self: center;
     }
 
     header {
