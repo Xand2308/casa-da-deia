@@ -4,14 +4,31 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: black;
+    background-color: #f8f3ec;
+    background-image:
+        radial-gradient(ellipse at 18% 22%, rgba(230, 104, 60, 0.13), transparent 38%),
+        radial-gradient(ellipse at 82% 58%, rgba(141, 86, 56, 0.12), transparent 40%),
+        radial-gradient(ellipse at 45% 88%, rgba(223, 199, 171, 0.32), transparent 44%);
+    background-size: 140% 140%;
+    animation: ambient-background 30s ease-in-out infinite alternate;
     color: #4a3b32;
     margin: 0;
     padding: 0;
     line-height: 1.6;
 }
 
+@keyframes ambient-background {
+    from {
+        background-position: 0% 0%;
+    }
+
+    to {
+        background-position: 100% 100%;
+    }
+}
+
 header {
+    position: relative;
     background:
         linear-gradient(135deg, rgba(77, 45, 29, 0.62), rgba(92, 56, 35, 0.5)),
         url('../images/vitrine.jpeg') center / cover no-repeat;
@@ -19,6 +36,37 @@ header {
     padding: 45px 20px 35px;
     text-align: center;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.theme-toggle {
+    position: absolute;
+    z-index: 1;
+    top: 16px;
+    right: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 15px;
+    border: 1px solid rgba(255, 248, 243, 0.65);
+    border-radius: 999px;
+    background: rgba(77, 45, 29, 0.72);
+    color: #fff8f3;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+    transform: translateY(-2px);
+    background: rgba(77, 45, 29, 0.92);
+}
+
+.theme-toggle:focus-visible {
+    outline: 3px solid #fff8f3;
+    outline-offset: 3px;
 }
 
 .header-container {
@@ -205,6 +253,7 @@ footer .button-primary {
 }
 
 @media (prefers-reduced-motion: reduce) {
+    body,
     header .button-primary,
     footer .button-primary {
         animation: none;
@@ -220,6 +269,7 @@ footer .button-primary {
 .welcome-section {
     text-align: center;
     padding: 15px 10px 5px;
+    margin-bottom: 25px;
 }
 
 .welcome-section h2 {
@@ -229,8 +279,9 @@ footer .button-primary {
 }
 
 .welcome-lead {
-    font-size: 1.15em;
-    max-width: 720px;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    max-width: 640px;
     margin: 0 auto;
     color: #e6683c;
 }
@@ -706,4 +757,85 @@ footer {
     margin-top: 15px;
     font-size: 0.85em;
     color: #7d6556;
+}
+
+html[data-theme="dark"] body {
+    background-color: #211c19;
+    background-image:
+        radial-gradient(ellipse at 18% 22%, rgba(230, 104, 60, 0.12), transparent 38%),
+        radial-gradient(ellipse at 82% 58%, rgba(141, 86, 56, 0.16), transparent 40%),
+        radial-gradient(ellipse at 45% 88%, rgba(223, 199, 171, 0.08), transparent 44%);
+    color: #f3e8dc;
+}
+
+html[data-theme="dark"] .theme-toggle {
+    background: rgba(255, 248, 243, 0.92);
+    color: #4d2f25;
+    border-color: #fff8f3;
+}
+
+html[data-theme="dark"] .theme-toggle:hover {
+    background: #fff8f3;
+}
+
+html[data-theme="dark"] .welcome-section h2,
+html[data-theme="dark"] .welcome-lead,
+html[data-theme="dark"] .video-updates-heading h2,
+html[data-theme="dark"] .video-updates-heading p {
+    color: #f2a17d;
+}
+
+html[data-theme="dark"] .carousel-arrow,
+html[data-theme="dark"] .carousel-arrow:hover,
+html[data-theme="dark"] .video-carousel .carousel-arrow,
+html[data-theme="dark"] .video-carousel .carousel-arrow:hover {
+    color: #f3e8dc;
+}
+
+html[data-theme="dark"] .card-featured {
+    background-color: #302823;
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.28);
+}
+
+html[data-theme="dark"] .card-content h3 {
+    color: #fff3e7;
+}
+
+html[data-theme="dark"] .card-content p,
+html[data-theme="dark"] .highlights-list li {
+    color: #e2d2c3;
+}
+
+html[data-theme="dark"] .highlights-list li {
+    border-color: rgba(243, 232, 220, 0.16);
+}
+
+html[data-theme="dark"] .badge {
+    background-color: #49372d;
+    color: #f2bd9e;
+}
+
+html[data-theme="dark"] .button-secondary {
+    background: rgba(48, 40, 35, 0.9);
+    color: #fff3e7;
+    border-color: rgba(255, 243, 231, 0.35);
+}
+
+html[data-theme="dark"] footer {
+    background-color: #302823;
+    border-color: #49372d;
+    color: #f3e8dc;
+}
+
+html[data-theme="dark"] .footer-map h2,
+html[data-theme="dark"] .footer-map-link {
+    color: #f2bd9e;
+}
+
+html[data-theme="dark"] .footer-address {
+    color: #e2d2c3;
+}
+
+html[data-theme="dark"] .copyright {
+    color: #c2aa97;
 }

@@ -23,7 +23,15 @@
     }
 
     header {
-        padding: 30px 15px;
+        padding: 60px 15px 30px;
+    }
+
+    .theme-toggle {
+        top: 10px;
+        right: 12px;
+        gap: 6px;
+        padding: 8px 11px;
+        font-size: 0.8rem;
     }
 
     .brand-logo {
@@ -87,6 +95,10 @@
     }
 
     .curadoria-content p {
+        font-size: 1rem;
+    }
+
+    .welcome-lead {
         font-size: 1rem;
     }
 
