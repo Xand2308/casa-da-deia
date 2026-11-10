@@ -103,4 +103,16 @@
         width: 100%;
         max-width: 260px;
     }
+
+    .video-updates-heading h2 {
+        font-size: 1.8em;
+    }
+
+    .video-updates-heading p {
+        font-size: 1em;
+    }
+
+    .video-instagram-link {
+        align-self: center;
+    }
 }

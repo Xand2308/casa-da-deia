@@ -114,6 +114,76 @@
                 </section>
             </div>
         </section>
+
+        <section class="video-updates" aria-labelledby="video-updates-title">
+            <div class="video-updates-heading">
+                <span class="badge">📹 Novidades da loja</span>
+                <h2 id="video-updates-title">A Casa da Déia em vídeo</h2>
+                <p>Acompanhe novidades, bastidores e atualizações da loja.</p>
+            </div>
+            <div class="video-carousel" aria-label="Carrossel de vídeos da Casa da Déia">
+                <button class="carousel-arrow carousel-arrow-previous" type="button" aria-label="Mostrar vídeo anterior">
+                    <span aria-hidden="true">‹</span>
+                </button>
+                <button class="carousel-arrow carousel-arrow-next" type="button" aria-label="Mostrar próximo vídeo">
+                    <span aria-hidden="true">›</span>
+                </button>
+                <!-- Para publicar um vídeo, informe o caminho do arquivo em data-video-src, por exemplo: videos/novidades.mp4. -->
+                <div class="video-track" role="region" aria-roledescription="carrossel" aria-label="Vídeos com novidades da loja" tabindex="0">
+                    <article class="video-slide">
+                        <div class="card-featured video-card">
+                            <div class="video-frame">
+                                <video controls playsinline preload="metadata" poster="images/vitrine.jpeg" data-video-src="" aria-label="Vídeo com novidades do brechó"></video>
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon" aria-hidden="true">▶</span>
+                                    <p>Novidades do brechó em breve</p>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <span class="badge">👗 O Brechó</span>
+                                <h3>Novidades do brechó</h3>
+                                <p>Em breve, vídeos com peças novas, achadinhos e muito mais.</p>
+                                <a class="button button-secondary video-instagram-link" href="https://www.instagram.com/casadadeia_cafeeroupas?mdxt=M3k3YWtidGJhaG1j" target="_blank" rel="noopener noreferrer">Acompanhe no Instagram</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="video-slide">
+                        <div class="card-featured video-card">
+                            <div class="video-frame">
+                                <video controls playsinline preload="metadata" poster="images/deia-cafe.jpeg" data-video-src="" aria-label="Vídeo com novidades da cafeteria"></video>
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon" aria-hidden="true">▶</span>
+                                    <p>Bastidores da cafeteria em breve</p>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <span class="badge">☕ A Cafeteria</span>
+                                <h3>Bastidores da cafeteria</h3>
+                                <p>Um gostinho do nosso café, dos preparos e dos momentos especiais por aqui.</p>
+                                <a class="button button-secondary video-instagram-link" href="https://www.instagram.com/casadadeia_cafeeroupas?mdxt=M3k3YWtidGJhaG1j" target="_blank" rel="noopener noreferrer">Acompanhe no Instagram</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="video-slide">
+                        <div class="card-featured video-card">
+                            <div class="video-frame">
+                                <video controls playsinline preload="metadata" poster="images/fachada-curadoria.jpeg" data-video-src="" aria-label="Vídeo com avisos e atualizações da loja"></video>
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon" aria-hidden="true">▶</span>
+                                    <p>Atualizações da loja em breve</p>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <span class="badge">✨ Casa da Déia</span>
+                                <h3>Avisos e atualizações</h3>
+                                <p>Novidades, horários especiais e tudo o que acontece na Casa da Déia.</p>
+                                <a class="button button-secondary video-instagram-link" href="https://www.instagram.com/casadadeia_cafeeroupas?mdxt=M3k3YWtidGJhaG1j" target="_blank" rel="noopener noreferrer">Acompanhe no Instagram</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer>
@@ -197,6 +267,54 @@
 
             startAutoplay();
         }
+
+        const videoCarousel = document.querySelector(".video-carousel");
+        const videoTrack = videoCarousel.querySelector(".video-track");
+        const videoSlides = Array.from(videoTrack.querySelectorAll(".video-slide"));
+        const previousVideoButton = videoCarousel.querySelector(".carousel-arrow-previous");
+        const nextVideoButton = videoCarousel.querySelector(".carousel-arrow-next");
+        let currentVideoSlide = 0;
+
+        const pauseVideosExcept = (activeSlide) => {
+            videoSlides.forEach((slide, index) => {
+                if (index !== activeSlide) slide.querySelector("video").pause();
+            });
+        };
+
+        videoSlides.forEach((slide) => {
+            const video = slide.querySelector("video");
+            const videoSource = video.dataset.videoSrc.trim();
+            const placeholder = slide.querySelector(".video-placeholder");
+
+            if (videoSource) {
+                video.src = videoSource;
+                placeholder.hidden = true;
+            } else {
+                video.hidden = true;
+            }
+        });
+
+        const goToVideoSlide = (index) => {
+            currentVideoSlide = (index + videoSlides.length) % videoSlides.length;
+            pauseVideosExcept(currentVideoSlide);
+            videoTrack.scrollTo({
+                left: videoSlides[currentVideoSlide].offsetLeft - videoSlides[0].offsetLeft,
+                behavior: prefersReducedMotion.matches ? "auto" : "smooth"
+            });
+        };
+
+        previousVideoButton.addEventListener("click", () => goToVideoSlide(currentVideoSlide - 1));
+        nextVideoButton.addEventListener("click", () => goToVideoSlide(currentVideoSlide + 1));
+
+        videoTrack.addEventListener("scroll", () => {
+            const trackPosition = videoTrack.scrollLeft + videoSlides[0].offsetLeft;
+            currentVideoSlide = videoSlides.reduce((closestIndex, slide, index) => {
+                const closestDistance = Math.abs(videoSlides[closestIndex].offsetLeft - trackPosition);
+                const slideDistance = Math.abs(slide.offsetLeft - trackPosition);
+                return slideDistance < closestDistance ? index : closestIndex;
+            }, 0);
+            pauseVideosExcept(currentVideoSlide);
+        }, { passive: true });
     </script>
 </body>
 
